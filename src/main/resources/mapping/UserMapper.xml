@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.bean.User">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="openId" jdbcType="VARCHAR" property="openid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="gender" jdbcType="TINYINT" property="gender"/>
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="user_head" jdbcType="VARCHAR" property="userHead"/>
+        <result column="user_wallet" jdbcType="DECIMAL" property="userWallet"/>
+        <result column="user_pay_password" jdbcType="VARCHAR" property="userPayPassword"/>
+        <result column="school" jdbcType="VARCHAR" property="school"/>
+        <result column="professional" jdbcType="TINYINT" property="professional"/>
+        <result column="achievement" jdbcType="VARCHAR" property="achievement"/>
+        <result column="educational" jdbcType="VARCHAR" property="educational"/>
+        <result column="research_area" jdbcType="VARCHAR" property="researchArea"/>
+        <result column="certificate_photo" jdbcType="VARCHAR" property="certificatePhoto"/>
+        <result column="identification_reverse_photo" jdbcType="VARCHAR" property="identificationReversePhoto"/>
+        <result column="identification_right_photo" jdbcType="VARCHAR" property="identificationRightPhoto"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="business_license_photo" jdbcType="VARCHAR" property="businessLicensePhoto"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="favorable_rate" jdbcType="VARCHAR" property="favorableRate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+
+
+
+
+    <sql id="Base_Column_List">
+    id, role_id, openId, user_name, user_phone, gender, user_email, user_head, user_wallet, 
+    user_pay_password, school, professional, achievement, educational, research_area, 
+    certificate_photo, identification_reverse_photo, identification_right_photo, status, 
+    business_license_photo, company_name, favorable_rate, update_date, create_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.bean.User">
+        <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into user (id, role_id, openId,
+        user_name, user_phone, gender,
+        user_email, user_head, user_wallet,
+        user_pay_password, school, professional,
+        achievement, educational, research_area,
+        certificate_photo, identification_reverse_photo,
+        identification_right_photo, status, business_license_photo,
+        company_name, favorable_rate, update_date,
+        create_date)
+        values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT},
+        #{userEmail,jdbcType=VARCHAR}, #{userHead,jdbcType=VARCHAR}, #{userWallet,jdbcType=DECIMAL},
+        #{userPayPassword,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{professional,jdbcType=TINYINT},
+        #{achievement,jdbcType=VARCHAR}, #{educational,jdbcType=VARCHAR}, #{researchArea,jdbcType=VARCHAR},
+        #{certificatePhoto,jdbcType=VARCHAR}, #{identificationReversePhoto,jdbcType=VARCHAR},
+        #{identificationRightPhoto,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+        #{businessLicensePhoto,jdbcType=VARCHAR},
+        #{companyName,jdbcType=VARCHAR}, #{favorableRate,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP},
+        now())
+    </insert>
+    <insert id="insertSelective" parameterType="com.bean.User">
+        <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="openid != null">
+                openId,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userPhone != null">
+                user_phone,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="userEmail != null">
+                user_email,
+            </if>
+            <if test="userHead != null">
+                user_head,
+            </if>
+            <if test="userWallet != null">
+                user_wallet,
+            </if>
+            <if test="userPayPassword != null">
+                user_pay_password,
+            </if>
+            <if test="school != null">
+                school,
+            </if>
+            <if test="professional != null">
+                professional,
+            </if>
+            <if test="achievement != null">
+                achievement,
+            </if>
+            <if test="educational != null">
+                educational,
+            </if>
+            <if test="researchArea != null">
+                research_area,
+            </if>
+            <if test="certificatePhoto != null">
+                certificate_photo,
+            </if>
+            <if test="identificationReversePhoto != null">
+                identification_reverse_photo,
+            </if>
+            <if test="identificationRightPhoto != null">
+                identification_right_photo,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="businessLicensePhoto != null">
+                business_license_photo,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="favorableRate != null">
+                favorable_rate,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="userEmail != null">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userHead != null">
+                #{userHead,jdbcType=VARCHAR},
+            </if>
+            <if test="userWallet != null">
+                #{userWallet,jdbcType=DECIMAL},
+            </if>
+            <if test="userPayPassword != null">
+                #{userPayPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="professional != null">
+                #{professional,jdbcType=TINYINT},
+            </if>
+            <if test="achievement != null">
+                #{achievement,jdbcType=VARCHAR},
+            </if>
+            <if test="educational != null">
+                #{educational,jdbcType=VARCHAR},
+            </if>
+            <if test="researchArea != null">
+                #{researchArea,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatePhoto != null">
+                #{certificatePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="identificationReversePhoto != null">
+                #{identificationReversePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="identificationRightPhoto != null">
+                #{identificationRightPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="businessLicensePhoto != null">
+                #{businessLicensePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="favorableRate != null">
+                #{favorableRate,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                now(),
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bean.User">
+        update user
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="openid != null">
+                openId = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                user_phone = #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="userEmail != null">
+                user_email = #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userHead != null">
+                user_head = #{userHead,jdbcType=VARCHAR},
+            </if>
+            <if test="userWallet != null">
+                user_wallet = #{userWallet,jdbcType=DECIMAL},
+            </if>
+            <if test="userPayPassword != null">
+                user_pay_password = #{userPayPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                school = #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="professional != null">
+                professional = #{professional,jdbcType=TINYINT},
+            </if>
+            <if test="achievement != null">
+                achievement = #{achievement,jdbcType=VARCHAR},
+            </if>
+            <if test="educational != null">
+                educational = #{educational,jdbcType=VARCHAR},
+            </if>
+            <if test="researchArea != null">
+                research_area = #{researchArea,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatePhoto != null">
+                certificate_photo = #{certificatePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="identificationReversePhoto != null">
+                identification_reverse_photo = #{identificationReversePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="identificationRightPhoto != null">
+                identification_right_photo = #{identificationRightPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="businessLicensePhoto != null">
+                business_license_photo = #{businessLicensePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="favorableRate != null">
+                favorable_rate = #{favorableRate,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bean.User">
+    update user
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      openId = #{openid,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=TINYINT},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_head = #{userHead,jdbcType=VARCHAR},
+      user_wallet = #{userWallet,jdbcType=DECIMAL},
+      user_pay_password = #{userPayPassword,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      professional = #{professional,jdbcType=TINYINT},
+      achievement = #{achievement,jdbcType=VARCHAR},
+      educational = #{educational,jdbcType=VARCHAR},
+      research_area = #{researchArea,jdbcType=VARCHAR},
+      certificate_photo = #{certificatePhoto,jdbcType=VARCHAR},
+      identification_reverse_photo = #{identificationReversePhoto,jdbcType=VARCHAR},
+      identification_right_photo = #{identificationRightPhoto,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      business_license_photo = #{businessLicensePhoto,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      favorable_rate = #{favorableRate,jdbcType=VARCHAR},
+      update_date = now(),
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="getUserByPhone" parameterType="string" resultMap="BaseResultMap">
+    select * from user WHERE user_phone=#{userPhone,jdbcType=VARCHAR};
+    </select>
+
+
+
+    <select id="selectUserByOpenid" parameterType="string" resultMap="BaseResultMap">
+        select * from user WHERE openId=#{openId,jdbcType=VARCHAR};
+    </select>
+
+
+
+</mapper>
